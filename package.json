@@ -9,7 +9,7 @@
   "packageManager": "pnpm@10.22.0",
   "dependencies": {
     "jsonc-parser": "^3.3.1",
-    "vue": "^3.5.32",
+    "vue": "^3.5.34",
     "vue-router": "^5.0.6"
   },
   "devDependencies": {
