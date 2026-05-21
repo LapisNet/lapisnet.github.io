@@ -1,8 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { pages } from '../router';
+import { fetchData } from '../libs/fetch-data';
 
 const showMenu = ref(false);
+const links = ref([]);
 
 /** @param {HTMLElement} target */
 const closeMenu = (target) => {
@@ -11,8 +13,8 @@ const closeMenu = (target) => {
 };
 const openMenu = () => showMenu.value = true;
 
-const time = ref('××:×× ××');
-onMounted(() => {
+const time = ref('xx:xx xx');
+onMounted(async() => {
 	/** 初始化时钟 */
 	setInterval(() => {
 		const now = new Date();
@@ -21,6 +23,8 @@ onMounted(() => {
 		const period = hour < 12? 'AM': 'PM';
 		time.value = `${hour}:${minute} ${period}`;
 	}, 1000);
+
+	links.value = await fetchData('links');
 });
 </script>
 
@@ -42,11 +46,14 @@ onMounted(() => {
 			<h2 class="menu-title">菜单</h2>
 			<router-link class="menu-item" v-for="page in pages" :key="page.meta.name"
 			 :to="page.path">{{ page.meta.name }}</router-link>
+			<span class="separator" />
+			<a class="menu-item" v-for="link in links" :key="link.title" :href="link.link"
+				target="_blank" rel="noopener">{{ link.title }}</a>
 		</div>
 	</div>
 </template>
 
-<style>
+<style scoped lang="scss">
 @keyframes menu-slide-in {
 	from { right: -40%; }
 	to { right: 0; }
@@ -55,9 +62,6 @@ onMounted(() => {
 	from { right: 0; }
 	to { right: -40%; }
 }
-</style>
-
-<style scoped lang="scss">
 a {
 	text-decoration: none;
 }
@@ -115,6 +119,12 @@ a {
 }
 .less, .menu {
 	display: none;
+}
+.separator {
+	display: block;
+	height: 2px;
+	background-color: color-mix(in srgb, var(--pico-contrast-border), transparent 50%);
+	margin: 0.4em 0;
 }
 @media screen and (max-width: 768px) {
 	.nav {
