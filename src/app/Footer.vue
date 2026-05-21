@@ -6,8 +6,8 @@ const conctacts = ref([]);
 const links = ref([]);
 
 onBeforeMount(async() => {
-	conctacts.value = await (await import('../libs/fetch-data')).fetchData('contacts');
-	links.value = await (await import('../libs/fetch-data')).fetchData('links');
+	conctacts.value = await fetchData('contacts');
+	links.value = await fetchData('links');
 });
 </script>
 
