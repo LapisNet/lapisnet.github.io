@@ -177,9 +177,10 @@
 	.header {
 		display: inline-flex;
 		align-items: center;
+		gap: 0.4em;
 	}
 
-	& .avatar {
+	.avatar {
 		width: 20%;
 		border-radius: 50%;
 		margin-right: 0.4em;
@@ -188,17 +189,21 @@
 		transition: transform 0.3s ease-in-out;
 	}
 
-	& .name {
-		display: inline-block;
+	.name {
+		display: inline-flex;
+		align-items: baseline;
+		gap: 0.4em;
 		font-size: 1em;
 		font-weight: bold;
 	}
 
-	.aka {
+	.aka, .role {
 		display: block;
 		font-size: 0.5em;
 		color: var(--pico-secondary);
+	}
 
+	.role {
 		&::before,
 		&::after {
 			padding: 0 0.4em;
@@ -206,14 +211,20 @@
 		}
 	}
 
-	.role {
+	.aka {
+		font-size: 0.65em;
+		color: var(--pico-contrast);
+	}
+
+	.bio {
+		display: block;
 		font-size: 0.8em;
 		color: var(--pico-contrast);
 	}
 
 	@media screen and (max-width: 768px) {
 		.name {
-			font-size: 1.5em;
+			font-size: 1.25em;
 		}
 
 		.aka {
@@ -221,7 +232,11 @@
 		}
 
 		.role {
-			font-size: 1.25em;
+			font-size: 1.125em;
+		}
+
+		.bio {
+			font-size: 1em;
 		}
 	}
 }
