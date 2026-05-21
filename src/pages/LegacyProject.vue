@@ -1,12 +1,13 @@
 <script setup>
 import {ref, onBeforeMount} from 'vue';
+import { fetchData } from '../libs/fetch-data';
 import { parseRawText } from '../libs/late-marked';
 
 /** @type {Project[]} */
 const projects = ref([]);
 const showedProjectCount = ref(0);
 onBeforeMount(async() => {
-	projects.value = await ((await import('../libs/fetch-data')).fetchData('projects'));
+	projects.value = await fetchData('projects');
 	projects.value.forEach(pj => (typeof pj._show === 'undefined' || pj._show) && showedProjectCount.value++);
 });
 </script>

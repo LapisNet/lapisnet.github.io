@@ -1,11 +1,12 @@
 <script setup>
 import {ref, onBeforeMount} from 'vue';
+import { fetchData } from '../libs/fetch-data';
 import { parseRawText } from '../libs/late-marked';
 
 /** @type {Member[]} */
 const members = ref([]);
 onBeforeMount(async() => {
-	members.value = await (await import('../libs/fetch-data')).fetchData('members');
+	members.value = await fetchData('members');
 });
 const openLink = (url) => url && window.open(url, '_blank', 'noopener,noreferrer');
 </script>

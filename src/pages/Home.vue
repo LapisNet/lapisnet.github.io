@@ -1,5 +1,6 @@
 <script setup>
 import {ref, onBeforeMount} from 'vue';
+import {fetchData} from '../libs/fetch-data';
 
 function splitOnce(str) {
 	const index = str.indexOf(' ');
@@ -20,7 +21,7 @@ function paseDate(date) {
 
 const news = ref([]);
 onBeforeMount(async() => {
-	let text = await (await import('../libs/fetch-data')).fetchData('news');
+	let text = await fetchData('news');
 	text = text.trim().split('\n');
 	for(text of text) {
 		if(text.startsWith('#')) continue;
